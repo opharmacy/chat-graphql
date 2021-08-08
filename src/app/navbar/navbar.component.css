@@ -1,5 +1,6 @@
 .navbar-nav{
     margin-left: auto !important;
+    display: block;
 }
 li{
     display:inline-block;

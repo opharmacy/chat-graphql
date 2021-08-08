@@ -10,14 +10,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ChatComponent } from './chat/chat.component';
-
+import {AccordionModule} from 'primeng/accordion';     
+import {MenuItem} from 'primeng/api';
+import { SearchPipe } from './pipe/search.pipe';
 @NgModule({
   declarations: [
     AppComponent,
     CreateUserComponent,
     LoginComponent,
     NavbarComponent,
-    ChatComponent
+    ChatComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,8 @@ import { ChatComponent } from './chat/chat.component';
     GraphQLModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    AccordionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

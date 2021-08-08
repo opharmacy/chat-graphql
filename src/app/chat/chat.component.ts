@@ -10,9 +10,9 @@ import { ChatService } from '../services/chat.service';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-    @ViewChild('scrollMe')
+  @ViewChild('scrollMe')
   myScrollContainer!: ElementRef;
-
+  deleteArray: any[] = [];
   allUsers: any;
   allConversions: any[] = [];
   chatID: any = null;
@@ -21,7 +21,8 @@ export class ChatComponent implements OnInit {
   decoded: any;
   allMessages: any[] = [];
   newMessages: any[] = [];
-  constructor(private apollo: Apollo, private chatService: ChatService,private _ElementRef:ElementRef) {
+  searchText: any = null;
+  constructor(private apollo: Apollo, private chatService: ChatService, private _ElementRef: ElementRef) {
     this.token = localStorage.getItem('token');
     this.decoded = jwt_decode(this.token);
   }
@@ -40,8 +41,8 @@ export class ChatComponent implements OnInit {
     )
     this.chatService.getConver().subscribe(
       (queryOutput: any) => {
-        this.allConversions = queryOutput.data.getConversations
-        console.log(this.allConversions)
+        this.allConversions = queryOutput.data.getConversations;
+        this.deleteArray = [...this.allConversions];
         // .map((con: any) => {
         //   this.token = localStorage.getItem('token');
         //   this.decoded = jwt_decode(this.token);
@@ -64,7 +65,6 @@ export class ChatComponent implements OnInit {
 
     this.chatService.startConver(this.messageForm.controls.message.value, this.userTwo).subscribe(
       (data) => {
-        console.log(data.data);
         this.allUsers = data.data
       }, (err) => {
         console.log(err.message)
@@ -75,10 +75,9 @@ export class ChatComponent implements OnInit {
       (outputData: any) => {
         this.newMessages.push(outputData.data.message)
         setTimeout(() => {
-    this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-          
+          this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+
         }, 100);
-        console.log(this.myScrollContainer.nativeElement.scrollHeight)
         this.messageForm.reset()
       }
     )
@@ -90,17 +89,15 @@ export class ChatComponent implements OnInit {
   getChat(id: any, name: any) {
     this.chatID = id;
     this.userTwo = name;
-    console.log(id, name)
     this.chatService.getMessages(this.token, this.chatID).subscribe(
       (outputData: any) => {
         this.allMessages = outputData.data.conversation.messages;
         this.newMessages.push.apply(this.newMessages, outputData.data.conversation.messages)
         setTimeout(() => {
           this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-                
-              }, 100);
-        console.log(this.newMessages)
-        console.log(this.myScrollContainer.nativeElement.scrollHeight)
+
+        }, 100);
+
       }
     )
 
@@ -110,9 +107,10 @@ export class ChatComponent implements OnInit {
   deleteConv(id: any, index: number) {
     this.chatService.deleteCovn(this.token, id).subscribe(
       (outputData: any) => {
-        console.log(outputData, index)
+
         if (index > -1) {
-          this.allConversions.splice(index, 1)
+
+          this.deleteArray.splice(index, 1)
         }
 
       }

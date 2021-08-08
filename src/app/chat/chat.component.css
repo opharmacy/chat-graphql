@@ -1,6 +1,7 @@
 .mainDiv{
     background-image: url('../../assets/images/chat/stock-vector-social-media-sketch-vector-seamless-doodle-pattern-1660950727.jpg');
-    height: 91vh;
+    /* height: 91vh; */
+    min-height: 91vh;
 }
 .usersList{
     height: 70vh;

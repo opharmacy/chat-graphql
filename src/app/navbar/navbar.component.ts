@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apollo, gql } from 'apollo-angular';
 import jwt_decode from "jwt-decode";
+import { LoginServiceService } from '../services/login-service.service';
 import { LogoutService } from '../services/logout.service';
 
 

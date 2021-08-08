@@ -3,12 +3,13 @@
     <div class="container content-div shadow">
         <div class="row bg-white mt-5">
             <div class="col-md-4 usersList bg-dark">
-                <input type="text" placeholder="&#xF002; Search" class="mt-4" />
-                <div class="usersContainer"   >
-                    <div *ngFor='let conv of allConversions; let indexOfelement=index;' class="py-3">
+                <input type="text" [(ngModel)]="searchText" name="User" placeholder="&#xF002; Search" class="mt-4" />
+                <div>
+                    <div *ngFor='let conv of deleteArray| search:searchText; let indexOfelement=index;' class="py-3">
+                        <a (click)='getChat(conv._id,decoded.username == conv.userOne?conv.userTwo:conv.userOne)' class="text-white mx-2">
+
                         <img src="../../assets/images/chat/default-user-image.png" class="rounded-circle" width="50px"
                             alt="">
-                        <a (click)='getChat(conv._id,decoded.username == conv.userOne?conv.userTwo:conv.userOne)' class="text-white mx-2">
                             {{decoded.username == conv.userOne?conv.userTwo:conv.userOne}}
                         </a>
                         <button class="btn btn-danger float-right" (click)='deleteConv(conv._id,indexOfelement)'>
