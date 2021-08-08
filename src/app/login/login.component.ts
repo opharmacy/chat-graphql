@@ -2,21 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginServiceService } from '../services/login-service.service';
 
-const loginQl = gql`
-query loginquery($userInput: UserInput!) {
-  login(userInput: $userInput ) {
-    token
-  }
-}
-`;
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  constructor(private apollo: Apollo,private _Router:Router) { }
+  constructor(private apollo: Apollo,private _Router:Router,private _loginService:LoginServiceService  ) { }
 error:any;
   ngOnInit(): void {
   }
@@ -28,36 +22,15 @@ error:any;
 
 
   login() {
-
-    const loginQuery =  this.apollo.query({
-      query: loginQl,
-      variables: {
-        userInput: {
-          username: this.loginForm.controls.username.value,
-          password: this.loginForm.controls.password.value
+    this._loginService.loginService(this.loginForm.controls.username.value,this.loginForm.controls.password.value).subscribe(
+      (data:any) => {
+         console.log(data.data.login.token);
+         localStorage.setItem('token',data.data.login.token);
+         this._Router.navigate(["/chat"]);
+         },(err)=>{
+          this.error=err.message
+          //console.log(err.message)
         }
-      }
-    });
-    
-  loginQuery.subscribe(
-    (data:any) => {
-       console.log(data.data.login.token);
-       localStorage.setItem('token',data.data.login.token);
-       this._Router.navigate(["/chat"]);
-       
-       },(err)=>{
-        this.error=err.message
-        //console.log(err.message)
-      }
-  )
-
-
-
-
-
-
-
+    )
   }
-  
-
 }
