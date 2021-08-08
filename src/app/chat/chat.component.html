@@ -1,0 +1,60 @@
+<div class="mainDiv">
+    <p class="p-hidden">ss</p>
+    <div class="container content-div shadow">
+        <div class="row bg-white mt-5">
+            <div class="col-md-4 usersList bg-dark">
+                <input type="text" placeholder="&#xF002; Search" class="mt-4" />
+                <div class="usersContainer">
+                    <div *ngFor='let conv of allConversions; let indexOfelement=index;' class="py-3">
+                        <img src="../../assets/images/chat/default-user-image.png" class="rounded-circle" width="50px"
+                            alt="">
+                        <a (click)='getChat(conv._id,decoded.username == conv.userOne?conv.userTwo:conv.userOne)' class="text-white mx-2">
+                            {{decoded.username == conv.userOne?conv.userTwo:conv.userOne}}
+                        </a>
+                        <button class="btn btn-danger float-right" (click)='deleteConv(conv._id,indexOfelement)'>
+                            Delete
+                        </button>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 ">
+                <div class="container chat-container border border-secondary mt-3">
+
+                    <div *ngIf='chatID' >
+
+                        <div *ngFor='let message of newMessages'>
+                            <div class="sender">
+                                <div *ngIf='message.author==decoded.username'
+                                    class=" m-1 bg-danger p-2 text-white messagesSend ">
+                                    {{message.message}}
+                                </div>
+                                <div class="receiver">
+                                    <div *ngIf='message.author!=decoded.username'
+                                        class=" m-1 bg-dark p-2 text-white messages">
+                                        {{message.message}}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>           
+                <form [formGroup]='messageForm' (ngSubmit)='send()'>
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <input type="text" formControlName='message' placeholder="Write message" class="w-100" />
+
+                        </div>
+                        <div class="col-md-4">
+                            <button class=" float-right my-2 w-100 sendButton">Send</button>
+
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+

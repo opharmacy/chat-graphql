@@ -1,0 +1,43 @@
+<!-- <form [formGroup]='loginForm'  (ngSubmit)='login()'>
+    <div class="form-group">
+        <input formControlName='username' type="text" class="form-control w-75" placeholder="username">
+    </div>
+    <div class="form-group">
+        <input formControlName='password' type="password" class="form-control w-75" placeholder="password">
+    </div>
+    <button class="btn btn-info" type="submit">
+        Submit
+    </button>
+
+    <div  class="alert alert-danger">
+        mm
+    </div>
+</form>
+ -->
+
+
+
+
+
+ <div class="container mt-5">
+    <div class=" row  m-auto w-50 content-div shadow mb-5">
+       <div class="col-8 m-auto text-center py-5">
+            <img src="../../assets/images/createuser/icons8-chat-96.png" class="m-auto" alt="">
+            <form [formGroup]='loginForm'  (ngSubmit)='login()' >
+                <div class="">
+                    <input formControlName='username' type="text" class=" my-2 w-100 mx-auto" placeholder="username">
+                </div>
+                <div class="">
+                    <input formControlName='password' type="password" class=" my-2 w-100 mx-auto" placeholder="password">
+                </div>
+                <button class=" w-100 my-3" type="submit">
+                    Login
+                </button>
+            </form>
+            <p>Don't have account ? <a routerLink='/createUser'>Register</a></p>
+            <div *ngIf='error' class="alert alert-danger">
+                {{error}}
+            </div>
+       </div>
+      </div>
+</div>

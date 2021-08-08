@@ -1,0 +1,61 @@
+.mainDiv{
+    background-image: url('../../assets/images/chat/stock-vector-social-media-sketch-vector-seamless-doodle-pattern-1660950727.jpg');
+    height: 91vh;
+}
+.usersList{
+    height: 70vh;
+    overflow: auto;
+}
+.p-hidden{
+    color: transparent;
+}
+input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-family: Arial, 'Font Awesome 5 Free';
+    border-radius: 10px ;
+  }
+.chat-container{
+    background-color: #f8f8ff;
+    height: 55vh;   
+    overflow: auto;
+    
+}
+.chat-div{
+    height: 90%;
+    background-color: white;
+    overflow: auto;
+}
+
+.sendButton{
+    border: none;
+  padding: 13px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+    background: rgb(9,122,38);
+    background: linear-gradient(90deg, rgba(9,122,38,1) 0%, rgba(57,184,86,1) 57%, rgba(0,255,145,1) 100%);
+    border-radius: 10px ;
+
+}
+.messagesSend{
+    display: block !important;
+    border-radius: 10px ;
+    width: fit-content;
+    margin-left: auto !important;
+}
+.messages{
+    display: block !important;
+    border-radius: 10px ;
+    width: fit-content;
+    margin-right: auto !important;
+}
+.content-div {
+    border-radius: 10px;
+}
+hr{
+    background-color: white;
+}
