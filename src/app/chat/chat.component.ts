@@ -73,7 +73,8 @@ export class ChatComponent implements OnInit {
 
     this.chatService.getNewMessages(this.token, this.chatID).subscribe(
       (outputData: any) => {
-        this.newMessages.push(outputData.data.message)
+        // this.newMessages.push(outputData.data.message)
+        this.newMessages=[...this.newMessages,outputData.data.message]
         setTimeout(() => {
           this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
 
@@ -91,8 +92,10 @@ export class ChatComponent implements OnInit {
     this.userTwo = name;
     this.chatService.getMessages(this.token, this.chatID).subscribe(
       (outputData: any) => {
-        this.allMessages = outputData.data.conversation.messages;
-        this.newMessages.push.apply(this.newMessages, outputData.data.conversation.messages)
+        // this.allMessages = outputData.data.conversation.messages;
+        // this.newMessages.push.apply(this.newMessages, outputData.data.conversation.messages)
+        this.newMessages=[...outputData.data.conversation.messages]
+        console.log(this.newMessages)
         setTimeout(() => {
           this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
 

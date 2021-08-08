@@ -32,10 +32,12 @@
                                 </div>
                                 <div class="receiver">
                                     <div *ngIf='message.author!=decoded.username'
-                                        class=" m-1 bg-dark p-2 text-white messages">
+                                        class=" m-1 bg-dark p-2 text-white messages" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
                                         {{message.message}}
                                     </div>
+                                    <div>
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
