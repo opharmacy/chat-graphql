@@ -4,7 +4,7 @@
         <div class="row bg-white mt-5">
             <div class="col-md-4 usersList bg-dark">
                 <input type="text" placeholder="&#xF002; Search" class="mt-4" />
-                <div class="usersContainer">
+                <div class="usersContainer"   >
                     <div *ngFor='let conv of allConversions; let indexOfelement=index;' class="py-3">
                         <img src="../../assets/images/chat/default-user-image.png" class="rounded-circle" width="50px"
                             alt="">
@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="col-md-8 ">
-                <div class="container chat-container border border-secondary mt-3">
+                <div class="container chat-container border border-secondary mt-3" #scrollMe>
 
                     <div *ngIf='chatID' >
 

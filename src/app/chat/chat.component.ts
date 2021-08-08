@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Apollo, gql } from 'apollo-angular';
@@ -10,6 +10,9 @@ import { ChatService } from '../services/chat.service';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
+    @ViewChild('scrollMe')
+  myScrollContainer!: ElementRef;
+
   allUsers: any;
   allConversions: any[] = [];
   chatID: any = null;
@@ -18,7 +21,7 @@ export class ChatComponent implements OnInit {
   decoded: any;
   allMessages: any[] = [];
   newMessages: any[] = [];
-  constructor(private apollo: Apollo, private chatService: ChatService) {
+  constructor(private apollo: Apollo, private chatService: ChatService,private _ElementRef:ElementRef) {
     this.token = localStorage.getItem('token');
     this.decoded = jwt_decode(this.token);
   }
@@ -71,6 +74,11 @@ export class ChatComponent implements OnInit {
     this.chatService.getNewMessages(this.token, this.chatID).subscribe(
       (outputData: any) => {
         this.newMessages.push(outputData.data.message)
+        setTimeout(() => {
+    this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+          
+        }, 100);
+        console.log(this.myScrollContainer.nativeElement.scrollHeight)
         this.messageForm.reset()
       }
     )
@@ -87,9 +95,15 @@ export class ChatComponent implements OnInit {
       (outputData: any) => {
         this.allMessages = outputData.data.conversation.messages;
         this.newMessages.push.apply(this.newMessages, outputData.data.conversation.messages)
+        setTimeout(() => {
+          this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+                
+              }, 100);
         console.log(this.newMessages)
+        console.log(this.myScrollContainer.nativeElement.scrollHeight)
       }
     )
+
 
   }
 
