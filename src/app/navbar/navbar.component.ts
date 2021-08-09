@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apollo, gql } from 'apollo-angular';
 import jwt_decode from "jwt-decode";
@@ -12,6 +12,7 @@ import { LogoutService } from '../services/logout.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  @Input('ss') public tokens: any;
   decoded: any;
   constructor(private apollo: Apollo, private _Router: Router, private logoutService: LogoutService) { }
   token: any;

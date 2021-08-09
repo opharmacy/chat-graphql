@@ -12,6 +12,7 @@ import { LoginServiceService } from '../services/login-service.service';
 export class LoginComponent implements OnInit {
   constructor(private apollo: Apollo,private _Router:Router,private _loginService:LoginServiceService  ) { }
 error:any;
+public tokens:any;
   ngOnInit(): void {
   }
 
@@ -24,7 +25,7 @@ error:any;
   login() {
     this._loginService.loginService(this.loginForm.controls.username.value,this.loginForm.controls.password.value).subscribe(
       (data:any) => {
-         console.log(data.data.login.token);
+         this.tokens=data.data.login.token;
          localStorage.setItem('token',data.data.login.token);
          this._Router.navigate(["/chat"]);
          },(err)=>{

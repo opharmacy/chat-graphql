@@ -33,12 +33,6 @@ export class ChatComponent implements OnInit {
   })
   ngOnInit(): void {
 
-
-    this.chatService.getAllUsers().subscribe(
-      (output: any) => {
-        this.allUsers = output.data.users
-      }
-    )
     this.chatService.getConver().subscribe(
       (queryOutput: any) => {
         this.allConversions = queryOutput.data.getConversations;
@@ -59,30 +53,14 @@ export class ChatComponent implements OnInit {
     )
   }
 
-  objectKeys = Object.keys;
-
   send() {
 
     this.chatService.startConver(this.messageForm.controls.message.value, this.userTwo).subscribe(
       (data) => {
-        this.allUsers = data.data
       }, (err) => {
         console.log(err.message)
       }
     )
-
-    this.chatService.getNewMessages(this.token, this.chatID).subscribe(
-      (outputData: any) => {
-        // this.newMessages.push(outputData.data.message)
-        this.newMessages=[...this.newMessages,outputData.data.message]
-        setTimeout(() => {
-          this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-
-        }, 100);
-        this.messageForm.reset()
-      }
-    )
-
   }
 
 
@@ -92,31 +70,33 @@ export class ChatComponent implements OnInit {
     this.userTwo = name;
     this.chatService.getMessages(this.token, this.chatID).subscribe(
       (outputData: any) => {
-        // this.allMessages = outputData.data.conversation.messages;
-        // this.newMessages.push.apply(this.newMessages, outputData.data.conversation.messages)
         this.newMessages=[...outputData.data.conversation.messages]
-        console.log(this.newMessages)
         setTimeout(() => {
           this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-
         }, 100);
-
       }
     )
 
 
+    this.chatService.getNewMessages(this.token, this.chatID).subscribe(
+      (outputData: any) => {
+        this.newMessages=[...this.newMessages,outputData.data.message]
+        setTimeout(() => {
+          this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+        }, 100);
+        this.messageForm.reset()
+      }
+    )
   }
 
   deleteConv(id: any, index: number) {
     this.chatService.deleteCovn(this.token, id).subscribe(
       (outputData: any) => {
-
         if (index > -1) {
-
           this.deleteArray.splice(index, 1)
         }
-
       }
     )
   }
+  
 }
